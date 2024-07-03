@@ -8,14 +8,11 @@ class TestPalindrome(unittest.TestCase):
     of characters and case insensitivity, sourced from: 
     https://becomeawritertoday.com/palindrome-words/
     
-    The following assumptions were made:
-    1. Non-alphabetic characters must be ommited
-    2. The validation is not case-sensitive
-    3. Phrases or sentences are allowed
-    4. Strings with 0 or 1 character are allowed
-
-    These considerations can be changed to fulfill the
-    actual requirements.
+    Assumptions:
+    1. Non-alphabetic characters are omitted.
+    2. Checks are case-insensitive.
+    3. Phrases or sentences are permitted.
+    4. Strings of 0 or 1 character are considered palindromes.
     """
 
     def test_palindrome_word(self):
