@@ -29,4 +29,6 @@ def is_palindrome(word: str) -> bool:
 
     # Remove non-alphabetic characters and convert the string to lowercase
     cleaned_word = "".join(char.lower() for char in word if char.isalpha())
+
+    # Compare the cleaned word with its inverted version
     return cleaned_word == cleaned_word[::-1]
