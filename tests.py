@@ -2,6 +2,7 @@ import unittest
 
 from palindrome import is_palindrome
 from fraudulent_transactions import find_fraudulent_transactions
+from underground_system import UndergroundSystem
 
 
 class TestPalindrome(unittest.TestCase):
@@ -101,6 +102,60 @@ class TestFraudulentTransactions(unittest.TestCase):
             [4, 1001, 10000.00, "Mumbai", 10],
         ]
         self.assertEqual(find_fraudulent_transactions(transactions), [2, 4])
+
+
+class TestUndergroundSystem(unittest.TestCase):
+    """Test the UndergroundSystem class."""
+
+    def test_check_in_stores_travel_information(self):
+        system = UndergroundSystem()
+        system.check_in(1, "Colombia", 1)
+
+        self.assertEqual(len(system.check_ins), 1)
+        self.assertEqual(
+            system.check_ins[0],
+            {
+                "passenger_id": 1,
+                "station_name": "Colombia",
+                "t": 1,
+            },
+        )
+
+    def test_check_out_stores_travel_information(self):
+        system = UndergroundSystem()
+        system.check_in(1, "Colombia", 1)
+        system.check_out(1, "Canadá", 100)
+
+        self.assertEqual(len(system.check_outs), 1)
+        self.assertEqual(
+            system.check_outs[0],
+            {
+                "passenger_id": 1,
+                "station_name": "Canadá",
+                "t": 100,
+            },
+        )
+
+    def test_average_time(self):
+        system = UndergroundSystem()
+
+        # Samples of travels from Cartagena to Bogotá
+        system.check_in(1, "Cartagena", 3)
+        system.check_out(1, "Bogotá", 10)
+        self.assertAlmostEqual(system.get_average_time("Cartagena", "Bogotá"), 7.0)
+
+        system.check_in(2, "Cartagena", 5)
+        system.check_out(2, "Bogotá", 11)
+        self.assertAlmostEqual(system.get_average_time("Cartagena", "Bogotá"), 6.5)
+
+        # Samples of travels from Bogotá to Cartagena
+        system.check_in(3, "Bogotá", 8)
+        system.check_out(3, "Cartagena", 12)
+        self.assertAlmostEqual(system.get_average_time("Bogotá", "Cartagena"), 4.0)
+
+        system.check_in(4, "Bogotá", 10)
+        system.check_out(4, "Cartagena", 14)
+        self.assertAlmostEqual(system.get_average_time("Bogotá", "Cartagena"), 4.0)
 
 
 if __name__ == "__main__":
